@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exchange-rate
+  labels:
+    app: exchange-rate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exchange-rate
+  template:
+    metadata:
+      labels:
+        app: exchange-rate
+    spec:
+      containers:
+        - name: exchange-rate-service
+          # the url should be replaced by your own container repository.
+          image: gcr.io/k8s-test-277513/exchange-rate-service:v2
+          ports:
+            - containerPort: 8901

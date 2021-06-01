@@ -1,0 +1,20 @@
+syntax = "proto3";
+package com.example.core;
+
+
+message ExchangePushRequest{
+  map<string, string> exchangeRateMap = 1;
+  int64 timestamp = 2;
+}
+
+message ExchangePushResponse{
+  Status status = 1;
+  enum Status{
+    OK = 0;
+    ERROR = 1;
+  }
+}
+
+service ExchangePushService{
+  rpc pushExchangeRates(ExchangePushRequest) returns (ExchangePushResponse){}
+}

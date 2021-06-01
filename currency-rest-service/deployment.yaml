@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-rest
+  labels:
+    app: currency-rest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currency-rest
+  template:
+    metadata:
+      labels:
+        app: currency-rest
+    spec:
+      containers:
+        - name: currency-rest-service
+          # the url should be replaced by your own container repository.
+          image: gcr.io/k8s-test-277513/currency-rest-service:v2
+          ports:
+            - containerPort: 8099
+              name: rest-endpoint
+            - containerPort: 9090
+              name: grpc-endpoint

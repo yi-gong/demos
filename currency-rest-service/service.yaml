@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: currency-rest-service
+spec:
+  selector:
+    app: currency-rest
+  ports:
+    - protocol: TCP
+      port: 8099
+      targetPort: 8099
+  type: LoadBalancer
+# REST endpoint for external communication
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: currency-grpc-service
+spec:
+  clusterIP: None
+  selector:
+    app: currency-rest
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+# GRPC endpoint for internal communication, within k8s cluster

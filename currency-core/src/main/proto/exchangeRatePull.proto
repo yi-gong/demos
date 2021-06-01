@@ -1,0 +1,25 @@
+syntax = "proto3";
+package com.example.core;
+
+message ExchangePullRequest{
+}
+
+message PullResponse {
+  oneof response{
+    ExchangePullResponse exchange = 1;
+    ErrorResponse error = 2;
+  }
+}
+message ExchangePullResponse{
+  map<string, string> exchangeRateMap = 1;
+  int64 timestamp = 2;
+}
+
+message ErrorResponse{
+  string errorMessage = 1;
+}
+
+service ExchangePullService{
+  rpc pullExchangeRates(ExchangePullRequest) returns (PullResponse){}
+}
+
